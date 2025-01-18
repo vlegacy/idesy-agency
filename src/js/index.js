@@ -108,10 +108,10 @@ function animTitleRedLine() {
 
 function fixHeaderOnScroll() {
   let previousScrollPosition = 0;
-  const header = document.querySelector(".header");
+  const header = document.querySelector(".js-header");
 
   if (!header) return;
-
+ header.classList.add("header--start-pos");
   window.addEventListener("scroll", () => {
     if (isScrollingDown() === false) {
       header.classList.add("fixed");
@@ -143,7 +143,13 @@ function fixHeaderOnScroll() {
     if (scrollPosition > previousScrollPosition) {
       goingDown = true;
       header.classList.add("header-scrolling");
+      // setTimeout(()=> {
+      //   header.classList.remove("header-bottom");
+      // },400)
     } else {
+      // setTimeout(()=> {
+      //   header.classList.add("header-bottom");
+      // },0)
       header.classList.remove("header-scrolling");
     }
 
@@ -265,63 +271,69 @@ function videoPlayer() {
 }
 
 function fullScreenMenu() {
-  const btn = document.querySelector(".header .btn-toggle-menu");
-  const menu = document.querySelector(".header .main-navigation");
-  const links = menu.querySelectorAll(".header .main-navigation li");
-  const lang_list = menu.querySelectorAll(".langs-list");
+  const wrapper = document.querySelectorAll('.js-header');
 
-  function onStart() {
-    document.body.classList.add("menu-opened");
-    btn.classList.add("open");
-  }
+  wrapper.forEach((item) => {
+    const btn = item.querySelector(".btn-toggle-menu");
+    const menu = item.querySelector(".main-navigation");
+    const links = menu.querySelectorAll(".main-navigation li");
+    const lang_list = menu.querySelectorAll(".langs-list");
 
-  function onComplete() {
-    document.body.classList.remove("menu-opened");
-    btn.classList.remove("open");
-  }
+    function onStart() {
+      document.body.classList.add("menu-opened");
+      btn.classList.add("open");
+    }
 
-  gsapMatchMedia.add("(max-width: 1200px)", () => {
-    console.log("max-1200");
+    function onComplete() {
+      document.body.classList.remove("menu-opened");
+      btn.classList.remove("open");
+    }
 
-    const tl = gsap.timeline({
-      paused: true,
+    gsapMatchMedia.add("(max-width: 1200px)", () => {
+      console.log("max-1200");
+
+      const tl = gsap.timeline({
+        paused: true,
+      });
+
+      gsap.set(links, { y: 30, opacity: 0 });
+      gsap.set(lang_list, { y: 30, opacity: 0 });
+
+      tl.to(menu, {
+        duration: 0.8,
+        opacity: 1,
+        height: "100%",
+        ease: "expo.inOut",
+      });
+      tl.to(links, {
+        y: 0,
+        opacity: 1,
+        stagger: 0.15,
+        ease: "power4.out",
+      });
+      tl.to(
+        lang_list,
+        { duration: 0.4, y: 0, opacity: 1, ease: "expo.inOut" },
+        "-=.3"
+      );
+      tl.reverse();
+
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (document.body.classList.contains("menu-opened")) {
+          onComplete();
+          tl.reversed(!tl.reversed());
+          document.body.classList.remove("menu-opened");
+        } else {
+          onStart();
+          tl.play();
+          document.body.classList.add("menu-opened");
+        }
+      });
     });
+  })
 
-    gsap.set(links, { y: 30, opacity: 0 });
-    gsap.set(lang_list, { y: 30, opacity: 0 });
 
-    tl.to(menu, {
-      duration: 0.8,
-      opacity: 1,
-      height: "100%",
-      ease: "expo.inOut",
-    });
-    tl.to(links, {
-      y: 0,
-      opacity: 1,
-      stagger: 0.15,
-      ease: "power4.out",
-    });
-    tl.to(
-      lang_list,
-      { duration: 0.4, y: 0, opacity: 1, ease: "expo.inOut" },
-      "-=.3"
-    );
-    tl.reverse();
-
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (document.body.classList.contains("menu-opened")) {
-        onComplete();
-        tl.reversed(!tl.reversed());
-        document.body.classList.remove("menu-opened");
-      } else {
-        onStart();
-        tl.play();
-        document.body.classList.add("menu-opened");
-      }
-    });
-  });
 }
 
 function initMarquee() {

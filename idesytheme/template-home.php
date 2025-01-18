@@ -106,39 +106,59 @@ $properties = function_exists('get_fields') ? get_fields() : [];
 			</div>
 		</div>
 	</div>
-	<div class="section_latest-works">
-		<div class="container">
-			<div aria-hidden="true" class="title_line_1 js-anim-line"></div>
-			<h2 class="title-custom title-custom-2">
-				<?php if (!empty($properties['section_3_title'])) : ?>
-					<?= $properties['section_3_title'] ?>
-				<?php endif; ?>
-			</h2>
-			<div class="cards-holder">
-				<?php
-				$latest_articles = new WP_Query(
-					array(
-						'post_type' => 'works',
-						'posts_per_page' => 3,
-						'orderby' => 'date',
-						'order' => 'DESC',
-						'post_status' => 'publish',
-					)
-				);
+	<?php
+	$latest_work = get_field('works-list');
 
-				if ($latest_articles->have_posts()) :
-					while ($latest_articles->have_posts()) :
-						$latest_articles->the_post();
-						get_template_part('template-parts/post_work_home');
-					endwhile;
-					wp_reset_postdata();
-				else :
-					echo '<p>No articles found</p>';
-				endif;
-				?>
+	if ($latest_work) {
+	?>
+		<div class="section_latest-works">
+			<div class="container">
+				<div aria-hidden="true" class="title_line_1 js-anim-line"></div>
+				<h2 class="title-custom title-custom-2">
+					<?php if (!empty($properties['section_3_title'])) : ?>
+						<?= $properties['section_3_title'] ?>
+					<?php endif; ?>
+				</h2>
+				<div class="cards-holder">
+					<?php
+					$latest_work = get_field('works-list');
+
+					foreach ($latest_work as $item) {
+						$post_id = $item->ID;
+						$thumbnail = get_field('img_on_home', $post_id);
+						$main_title = get_the_title($post_id);
+						$portfolio_tags_ids = get_post_meta($post_id, 'works_post_tags', true);
+					?>
+						<div class="works-card">
+							<div class="img-holder">
+								<?php
+								if (!empty($thumbnail) && !empty($thumbnail['sizes']['full'])) {
+									echo '<img src="' . $thumbnail['sizes']['full'] . '" alt="' . esc_attr($main_title) . '">';
+								}
+								?>
+							</div>
+							<h3 class="card-title"><?php echo esc_html($main_title); ?></h3>
+							<?php
+							if (!empty($portfolio_tags_ids) && is_array($portfolio_tags_ids)) {
+								echo '<ul class="list-tags">';
+								foreach ($portfolio_tags_ids as $tag_id) {
+									$term = get_term($tag_id);
+									if ($term && !is_wp_error($term)) {
+										echo '<li><span>' . esc_html($term->name) . '</span></li>';
+									}
+								}
+								echo '</ul>';
+							}
+							?>
+							<a href="<?php echo esc_url(get_permalink($post_id)); ?>" class="card-link">
+								<?php echo esc_html($main_title); ?>
+							</a>
+						</div>
+					<?php } ?>
+				</div>
 			</div>
 		</div>
-	</div>
+	<?php }; ?>
 	<div class="section_pride">
 		<div class="container">
 			<div class="text-holder">

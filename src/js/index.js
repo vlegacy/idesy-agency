@@ -29,12 +29,46 @@ document.addEventListener("DOMContentLoaded", () => {
   fixHeaderOnScroll();
   animTitleRedLine();
   fade();
+  cardMoveEffect();
 
   document.body.style.visibility = "visible";
   document.body.style.opacity = "1";
 
   console.log("content loaded");
 });
+
+const cardMoveEffect = () => {
+  // Thanks to Pavel Dobryakov //
+
+  const ANGLE = 20;
+
+  let card = document.querySelectorAll(".js-card-move-effect");
+
+  card.forEach((element, i) => {
+    floatable(element);
+  });
+
+  function floatable(panel) {
+    let content = panel.querySelector(".cooperate-card");
+    panel.addEventListener("mouseout", (e) => {
+      content.style.transform = `perspective(400px)
+								   rotateX(0deg)
+								   rotateY(0deg)
+								   rotateZ(0)`;
+    });
+
+    panel.addEventListener("mousemove", (e) => {
+      let w = panel.clientWidth;
+      let h = panel.clientHeight;
+      let y = ((e.offsetX - w * 0.5) / w) * ANGLE;
+      let x = ((1 - (e.offsetY - h * 0.5)) / h) * ANGLE;
+
+      content.style.transform = `perspective(400px)
+								   rotateX(${x}deg)
+								   rotateY(${y}deg)`;
+    });
+  }
+};
 
 const fade = () => {
   const SELECTORS = {
@@ -111,7 +145,7 @@ function fixHeaderOnScroll() {
   const header = document.querySelector(".js-header");
 
   if (!header) return;
- header.classList.add("header--start-pos");
+  header.classList.add("header--start-pos");
   window.addEventListener("scroll", () => {
     if (isScrollingDown() === false) {
       header.classList.add("fixed");
@@ -271,7 +305,7 @@ function videoPlayer() {
 }
 
 function fullScreenMenu() {
-  const wrapper = document.querySelectorAll('.js-header');
+  const wrapper = document.querySelectorAll(".js-header");
 
   wrapper.forEach((item) => {
     const btn = item.querySelector(".btn-toggle-menu");
@@ -331,9 +365,7 @@ function fullScreenMenu() {
         }
       });
     });
-  })
-
-
+  });
 }
 
 function initMarquee() {
@@ -400,6 +432,45 @@ function gsapAnimations() {
   homePageAnimtaions();
   footerAnimation();
   introAnimation();
+  stickyAnimation();
+
+  function stickyAnimation() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const stickyEl = document.querySelector(".js-sticky-wrapper");
+
+    if (stickyEl) {
+      ScrollTrigger.matchMedia({
+        "(min-width: 992px)": function () {
+          gsap.to(".js-sticky-el", {
+            scrollTrigger: {
+              id: "sticky-animation",
+              trigger: ".js-sticky-wrapper",
+              start: "top center",
+              end: () => {
+                const wrapper = document.querySelector(".js-sticky-wrapper");
+                const stickyEl = document.querySelector(".js-sticky-el");
+                return `${
+                  wrapper.offsetTop +
+                  wrapper.offsetHeight -
+                  stickyEl.offsetHeight * 2.5
+                }px`;
+              },
+              scrub: true,
+              pin: ".js-sticky-el",
+              pinSpacing: false,
+            },
+          });
+        },
+
+        "(max-width: 991px)": function () {
+          const stickyTrigger = ScrollTrigger.getById("sticky-animation");
+          if (stickyTrigger) stickyTrigger.kill();
+          gsap.set(".js-sticky-el", { clearProps: "all" });
+        },
+      });
+    }
+  }
 
   function footerAnimation() {
     const footer = gsap.timeline({

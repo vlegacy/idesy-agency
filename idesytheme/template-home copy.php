@@ -82,11 +82,11 @@ $properties = function_exists('get_fields') ? get_fields() : [];
 					<?php endif; ?>
 				</p>
 				<?php
-				$link_cooperate = get_field('section_cooperate_link');
-				if ($link_cooperate):
-					$link_url = $link_cooperate['url'];
-					$link_title = $link_cooperate['title'];
-					$link_target = $link_cooperate['target'] ? $link_cooperate['target'] : '_self';
+				$link = get_field('section_cooperate_link');
+				if ($link):
+					$link_url = $link['url'];
+					$link_title = $link['title'];
+					$link_target = $link['target'] ? $link['target'] : '_self';
 				?>
 					<div class="section_cooperate_btn_w">
 						<a class="btn btn-md btn-primary" href="<?php echo esc_url($link_url); ?>" target="<?php echo esc_attr($link_target); ?>"><?php echo esc_html($link_title); ?></a>

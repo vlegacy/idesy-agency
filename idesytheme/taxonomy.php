@@ -12,6 +12,27 @@ get_header();
 ?>
 <main class="main">
 	<div class="works-page">
+		<svg class="graphic-2" width="2154" height="1907" viewBox="0 0 2154 1907" fill="none"
+			xmlns="http://www.w3.org/2000/svg">
+			<g filter="url(#filter0_f_154_4)">
+				<path class="path-graphic-2"
+					d="M1014 1626.5C984.579 1462.66 1077 1177 1077 1177C1077 1177 285.744 872.828 257.5 825.5C229.256 778.172 1291.07 759.59 1291.07 759.59C1291.07 759.59 1296.1 140.218 1367.5 276.5C1575.31 673.124 1536.79 1264.63 1529.73 1352.27C1530.1 1351.98 1530.46 1351.7 1530.83 1351.41L1653.79 640.183L1897.91 1051.24C1897.91 1051.24 1724.26 1201.44 1530.83 1351.41L1528.78 1363.27C1528.78 1363.27 1529.15 1359.48 1529.73 1352.27C1294.35 1534.68 1030.13 1716.34 1014 1626.5Z"
+					fill="url(#paint0_diamond_154_4)" fill-opacity="0.64" />
+			</g>
+			<defs>
+				<filter id="filter0_f_154_4" x="0.94635" y="0.908508" width="2152.97" height="1905.3"
+					filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+					<feFlood flood-opacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feGaussianBlur stdDeviation="128" result="effect1_foregroundBlur_154_4" />
+				</filter>
+				<radialGradient id="paint0_diamond_154_4" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+					gradientTransform="translate(1219.89 944.193) rotate(-120.706) scale(518.057 528.304)">
+					<stop stop-color="#11376F" />
+					<stop offset="1" stop-color="#116F64" />
+				</radialGradient>
+			</defs>
+		</svg>
 		<div class="container">
 			<div aria-hidden="true" class="intro_title_line js-anim-intro-line" data-sroller-end="0"></div>
 			<?php idesy_get_breadcrumbs(); ?>

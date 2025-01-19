@@ -7,9 +7,18 @@
     padding-bottom: 10.6rem;
   }
 
+  .container {
+    @include breakpoint(lg, min) {
+      display: flex;
+      gap: 4rem;
+    }
+  }
+
   .title-custom {
+    margin-bottom: 3.4rem;
+
     @include breakpoint(lg, max) {
-      margin-bottom: 1.9rem;
+      margin-bottom: 2rem;
     }
 
     &::after {
@@ -28,17 +37,23 @@
   }
 
   .section-header {
+    max-width: calc(50% - 2rem);
     margin-bottom: 5.2rem;
+    order: 3;
+    // left: 50%;
 
     @include breakpoint(lg, min) {
-      display: flex;
+      position: sticky;
+      // display: flex;
     }
 
     @include breakpoint(lg, max) {
       margin-bottom: 2.4rem;
+      max-width: 100%;
     }
 
     .header-img {
+      display: none;
       will-change: transform, opacity;
       @include breakpoint(lg, min) {
         position: relative;
@@ -70,9 +85,14 @@
       font-size: 2rem;
       line-height: 1.6;
 
+      @include breakpoint(xl, min) {
+        max-width: 80rem;
+        column-count: 2;
+        gap: 4rem;
+      }
+
       @include breakpoint(lg, min) {
-        max-width: 42.5rem;
-        margin-left: 2.6rem;
+        max-width: 80rem;
       }
 
       @include breakpoint(lg, max) {
@@ -82,7 +102,21 @@
     }
   }
 
+  .section_cooperate_btn_w {
+    margin: 3.2rem 0 0 0;
+
+    @include breakpoint(lg, max) {
+      margin: 3.2rem 0 3.2rem 0rem;
+    }
+  }
+
   .row {
+    width: 50%;
+
+    @include breakpoint(lg, max) {
+      width: 100%;
+    }
+
     counter-reset: section;
 
     @include breakpoint(lg, min) {
@@ -96,8 +130,19 @@
     [class^="col-"] {
       margin-bottom: 1.6rem;
 
-      @include breakpoint(xl, max) {
-        width: 33.33333333%;
+      &:nth-child(odd) {
+        @include breakpoint(lg, min) {
+          margin-top: -15rem;
+        }
+      }
+
+      @include breakpoint(lg, min) {
+        width: 50%;
+      }
+
+      @include breakpoint(lg, max) {
+        width: 100%;
+        margin-bottom: 0.8rem;
       }
 
       @include breakpoint(lg, max) {
@@ -106,6 +151,10 @@
       }
 
       @include breakpoint(md, max) {
+        width: 50%;
+      }
+
+      @include breakpoint(sm, max) {
         width: 100%;
       }
     }
@@ -122,6 +171,7 @@
     border: 0.2rem solid #293135;
     background: #181d1f;
     overflow: hidden;
+    transition: all 0.4s linear;
 
     &::after {
       content: "";
@@ -139,7 +189,7 @@
       );
       filter: blur(64px);
       z-index: 1;
-      opacity: 0;
+      // opacity: 0;
       transition: $transition;
       transform: scale(0.5);
     }
@@ -165,8 +215,9 @@
       width: 29.6rem;
       height: 29.6rem;
       z-index: 2;
-      opacity: 0;
+      // opacity: 0;
       transition: $transition;
+      filter: brightness(50%);
     }
 
     .card-title {
@@ -185,7 +236,7 @@
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      transition: $transition;
+      transition: $transition, filter ease 0.4s;
       z-index: 2;
 
       &::after {
@@ -224,13 +275,27 @@
       }
 
       .card-img {
-        opacity: 1;
+        // opacity: 1;
+        filter: brightness(100%);
       }
 
       &::after {
         opacity: 1;
         transform: scale(1);
       }
+    }
+  }
+
+  .js-sticky-wrapper {
+    position: relative;
+  }
+  .js-sticky-el {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    @include breakpoint(lg, max) {
+      position: relative;
     }
   }
 }

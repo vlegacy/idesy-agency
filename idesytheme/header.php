@@ -15,8 +15,10 @@
 <html <?php language_attributes(); ?>>
 
 <head>
+	<link type="image/x-icon" rel="shortcut icon" href="./favicon.ico">
 	<meta charset="<?php bloginfo('charset'); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width initial-scale=1">
+
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 	<?php wp_head(); ?>
 </head>
@@ -35,7 +37,7 @@
 				<?php esc_html_e('Skip to content', 'idesy'); ?>
 			</a> -->
 		<!--  header -->
-		<header class="header">
+		<header class="header js-header">
 			<div class="container">
 				<div class="left-side">
 					<?php
@@ -62,7 +64,7 @@
 					if ($legacytheme_description || is_customize_preview()) :
 					?>
 						<p class="site-description">
-							<?php echo $legacytheme_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped                        
+							<?php echo $legacytheme_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							?>
 						</p>
 					<?php endif; ?>

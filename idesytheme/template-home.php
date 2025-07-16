@@ -82,11 +82,11 @@ $properties = function_exists('get_fields') ? get_fields() : [];
 					<?php endif; ?>
 				</p>
 				<?php
-				$link_cooperate = get_field('section_cooperate_link');
-				if ($link_cooperate):
-					$link_url = $link_cooperate['url'];
-					$link_title = $link_cooperate['title'];
-					$link_target = $link_cooperate['target'] ? $link_cooperate['target'] : '_self';
+				$link = get_field('section_cooperate_link');
+				if ($link):
+					$link_url = $link['url'];
+					$link_title = $link['title'];
+					$link_target = $link['target'] ? $link['target'] : '_self';
 				?>
 					<div class="section_cooperate_btn_w">
 						<a class="btn btn-md btn-primary" href="<?php echo esc_url($link_url); ?>" target="<?php echo esc_attr($link_target); ?>"><?php echo esc_html($link_title); ?></a>
@@ -100,7 +100,7 @@ $properties = function_exists('get_fields') ? get_fields() : [];
 					foreach ($section_2_blocks as $block) {
 						$block_title = $block['block_title'];
 						$block_images = $block['block_img'];
-						$block_link = $block['block_link'];
+						// $block_link = $block['block_link'];
 
 						echo '<div class="col-3 js-card-move-effect"><div class="cooperate-card">';
 
@@ -109,7 +109,7 @@ $properties = function_exists('get_fields') ? get_fields() : [];
 							echo '<img src="' . esc_url($large_image_url) . '" class="card-img" alt="' . esc_attr($block_images['alt']) . '">';
 						}
 						echo '<h3 class="card-title">' . wp_kses($block_title, 'post') . '</h3>';
-						echo '<a href="' . esc_url($block_link) . '" class="card-link">' . esc_html__('Детальніше', 'your-text-domain') . '</a>';
+						echo '<a toggle-modal="modal-contact-form" href="#" class="card-link">' . esc_html__('Детальніше', 'your-text-domain') . '</a>';
 						echo '</div></div>';
 					}
 				}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * idesy functions and definitions
  *
@@ -280,3 +281,11 @@ add_filter('rank_math/frontend/breadcrumb/items', function ($crumbs, $class) {
 	$crumbs[0][1] = $home_link;
 	return $crumbs;
 }, 10, 2);
+
+acf_add_options_page(array(
+	'page_title' => 'Site Settings',
+	'menu_title' => 'Site Settings',
+	'menu_slug' => 'site-settings',
+	'capability' => 'edit_posts',
+	'redirect' => false
+));

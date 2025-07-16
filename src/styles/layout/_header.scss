@@ -91,10 +91,14 @@ body.menu-opened {
       transform: scale(0.7) translateX(-7rem);
     }
 
-    .logo-holder,
+    .logo-holder {
+      transform: scale(0.7);
+    }
+
     .btn-toggle-menu,
     .btn-primary {
-      transform: scale(0.7);
+      // transform-origin: 50%;
+      transform: scale(0.7) translateY(1rem);
     }
 
     .main-navigation {

@@ -30,12 +30,126 @@ document.addEventListener("DOMContentLoaded", () => {
   animTitleRedLine();
   fade();
   cardMoveEffect();
+  socialBlock();
+  shakeHands();
 
   document.body.style.visibility = "visible";
   document.body.style.opacity = "1";
 
   console.log("content loaded");
 });
+
+const shakeHands = () => {
+  const hand = document.querySelector(".social_block__hand_w");
+  if (!hand) return;
+
+  const tl = gsap.timeline({
+    repeat: -1,
+    repeatDelay: 5,
+  });
+
+  tl.to(hand, {
+    rotation: 10,
+    duration: 0.2,
+    ease: "power1.inOut",
+    transformOrigin: "center",
+  })
+    .to(hand, {
+      rotation: -18,
+      duration: 0.2,
+      ease: "power1.inOut",
+    })
+    .to(hand, {
+      rotation: 16,
+      duration: 0.2,
+      ease: "power1.inOut",
+    })
+    .to(hand, {
+      rotation: -4,
+      duration: 0.2,
+      ease: "power1.inOut",
+    })
+    .to(hand, {
+      rotation: 0,
+      duration: 0.3,
+      ease: "elastic.out(1, 0.3)",
+    });
+};
+
+const socialBlock = () => {
+  const SELECTORS = {
+    wrapper: ".js-social-block",
+    titleText: ".js-social-text",
+    linkItem: ".js-social-link-item",
+    toggler: ".js-social-toggler",
+    cross: ".js-social-cross",
+  };
+
+  const CLASSNAME = {
+    active: "social_block--active",
+  };
+
+  const $wrapper = document.querySelector(SELECTORS.wrapper);
+
+  if (!$wrapper) return;
+
+  const $linkItems = document.querySelectorAll(SELECTORS.linkItem);
+  const $titleText = document.querySelector(SELECTORS.titleText);
+  const $toggler = document.querySelector(SELECTORS.toggler);
+  const $cross = document.querySelector(SELECTORS.cross);
+
+  const tl = gsap.timeline({
+    paused: true,
+    reversed: true,
+  });
+
+  tl.to($titleText, {
+    opacity: 0,
+    duration: 0.3,
+    ease: "power2.inOut",
+  })
+    .to($cross, {
+      opacity: 1,
+      duration: 0.3,
+      ease: "power2.inOut",
+    })
+    .to(
+      $linkItems,
+      {
+        xPercent: 0,
+        opacity: 1,
+        duration: 0.3,
+        ease: "none",
+      },
+      "-=0.2"
+    );
+
+  gsap.set($linkItems, {
+    xPercent: 100,
+    opacity: 0,
+  });
+
+  $toggler.addEventListener("click", () => {
+    if (tl.isActive()) return;
+
+    if (tl.reversed()) {
+      tl.play();
+    } else {
+      tl.reverse();
+    }
+  });
+
+  const handleScroll = () => {
+    if (window.scrollY > 300) {
+      $wrapper.classList.add(CLASSNAME.active);
+    } else {
+      $wrapper.classList.remove(CLASSNAME.active);
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  handleScroll();
+};
 
 const cardMoveEffect = () => {
   // Thanks to Pavel Dobryakov //

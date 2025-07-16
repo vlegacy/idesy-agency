@@ -1,0 +1,155 @@
+.social_block {
+  position: fixed;
+  z-index: 1;
+  bottom: 3rem;
+  right: 1rem;
+  width: 100%;
+  pointer-events: none;
+  transition: opacity ease 0.3s;
+
+  opacity: 0;
+
+  &.social_block--active {
+    opacity: 1;
+  }
+}
+
+.social_block__container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.social_block__row {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  margin-left: auto;
+
+  gap: 0.8rem;
+
+  .social_block--active & {
+    pointer-events: all;
+  }
+}
+
+.social_block__btn_on {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0 0;
+  height: 100%;
+}
+
+.social_block__hand_w {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 6.4rem;
+  height: 6.4rem;
+
+  background: url("#{$images}bubble.svg") no-repeat center;
+  background-size: 100% 100%;
+
+  span {
+    position: relative;
+    // top: -0.8rem;
+    // left: -0.4rem;
+    display: block;
+
+    width: 3rem;
+    height: 3rem;
+    font-size: 2.8rem;
+  }
+}
+
+.social_block__item_col {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.8rem;
+}
+
+.social_block__btn_on {
+  position: relative;
+}
+
+.social_block__btn_on_title {
+  position: absolute;
+  width: auto;
+  white-space: nowrap;
+  top: 1.4rem;
+  // left: 50%;
+  z-index: 1;
+  // transform: translateX(-50%);
+
+  font-family: "Dancing Script", cursive;
+  font-size: 1.6rem;
+  font-weight: 500;
+  // letter-spacing: -0.01em;
+  margin-bottom: 0.8rem;
+  color: #fff;
+}
+
+.social_block__btn_close {
+  display: block;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-bottom: 0.8rem;
+  opacity: 0;
+}
+
+.social_block__item {
+  overflow: hidden;
+
+  &.social_block__item--button-on {
+    overflow: visible;
+  }
+}
+
+.social_block__item_btn {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.2rem 1.6rem;
+  min-height: 4.8rem;
+
+  opacity: 0;
+  color: #222628;
+  text-decoration: none;
+  border-radius: 50rem;
+  background-color: #fff;
+  background: linear-gradient(
+    55deg,
+    rgba(215, 255, 247, 1) 10%,
+    rgba(255, 255, 255, 1) 40%,
+    rgba(205, 241, 251, 1) 95%
+  );
+
+  &.social_block__item_btn--telega {
+    border-bottom-right-radius: 6.4rem;
+  }
+  &.social_block__item_btn--calendly {
+    border-top-right-radius: 6.4rem;
+  }
+
+  .social_block__item_btn_text {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  .social_block__item_btn_icon {
+    display: block;
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+}
